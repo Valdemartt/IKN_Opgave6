@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{74B158F5-42EC-46A9-9AC7-E205635B23E9}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="file_server/file_server.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="file_client/file_client.cs">
     <Files>
-      <File FileName="file_server/file_server.cs" Line="110" Column="80" />
+      <File FileName="file_server/file_server.cs" Line="125" Column="13" />
+      <File FileName="file_client/file_client.cs" Line="21" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />

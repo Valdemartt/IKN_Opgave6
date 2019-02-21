@@ -35,7 +35,7 @@ namespace tcp
             serverStream.Flush();
 
             byte[] inStream = new byte[20000];
-            serverStream.Read(inStream, 0, (int) clientSocket.ReceiveBufferSize);
+            serverStream.Read(inStream, 0, (int) inStream.Length);
             string returnMessage = System.Text.Encoding.ASCII.GetString(inStream);
             long fileLength;
             long.TryParse(returnMessage, out fileLength);
