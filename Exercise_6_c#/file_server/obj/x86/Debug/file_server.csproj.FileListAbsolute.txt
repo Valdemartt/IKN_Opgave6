@@ -1,0 +1,8 @@
+/root/Desktop/IKN6/IKN_Opgave6/Exercise_6_c#/file_server/bin/Debug/file_server.exe
+/root/Desktop/IKN6/IKN_Opgave6/Exercise_6_c#/file_server/bin/Debug/file_server.pdb
+/root/Desktop/IKN6/IKN_Opgave6/Exercise_6_c#/file_server/bin/Debug/LIB.dll
+/root/Desktop/IKN6/IKN_Opgave6/Exercise_6_c#/file_server/bin/Debug/LIB.pdb
+/root/Desktop/IKN6/IKN_Opgave6/Exercise_6_c#/file_server/obj/x86/Debug/file_server.csprojResolveAssemblyReference.cache
+/root/Desktop/IKN6/IKN_Opgave6/Exercise_6_c#/file_server/obj/x86/Debug/file_server.csproj.CoreCompileInputs.cache
+/root/Desktop/IKN6/IKN_Opgave6/Exercise_6_c#/file_server/obj/x86/Debug/file_server.exe
+/root/Desktop/IKN6/IKN_Opgave6/Exercise_6_c#/file_server/obj/x86/Debug/file_server.pdb

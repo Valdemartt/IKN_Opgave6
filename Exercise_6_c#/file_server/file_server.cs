@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace tcp
 {
@@ -42,12 +43,12 @@ namespace tcp
 		/// <param name='io'>
 		/// Network stream for writing to the client.
 		/// </param>
-		private void sendFile (String fileName, long fileSize, NetworkStream io)
+		private static void sendFile (String fileName, long fileSize, NetworkStream io)
 		{
             FileStream Fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
             int NoOfPackets = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Fs.Length)/ Convert.ToDouble(BUFSIZE)));
             int TotalLength = (int) Fs.Length;
-            int currentPacketLength, bytesSent = 0;
+            int bytesSent = 0;
             byte[] SendingBuffer = null;
             for(int i = 0; i < NoOfPackets; ++i)
             {
@@ -82,34 +83,46 @@ namespace tcp
             TcpListener serverSocket = new TcpListener(PORT);
             serverSocket.Start();
             Console.WriteLine("Server socket started");
-            TcpClient clientSocket = serverSocket.AcceptTcpClient();
-            Console.WriteLine("Server socket now accepts clients");
+         
 
             while (true)
             {
                 try
                 {
-                    file_server fileServer = new file_server();
+					TcpClient clientSocket = serverSocket.AcceptTcpClient();
+                    Console.WriteLine("Client acceped");
                     NetworkStream networkStream = clientSocket.GetStream();
+					Console.WriteLine("Got stream");
                     string path = LIB.readTextTCP(networkStream);
+					Console.WriteLine("Path received:" + path);
                     string fileName = LIB.extractFileName(path);
                     long fileLength = LIB.check_File_Exists(fileName);
+					Console.WriteLine(fileName);
                     if (fileLength == 0) //File not found
                     {
+						Console.WriteLine("File length: " + fileLength.ToString());
                         LIB.writeTextTCP(networkStream,fileLength.ToString());
+						clientSocket.Close();
                     }
                     else // File found
                     {
-                        LIB.writeTextTCP(networkStream,"Filesize: " + fileLength.ToString());
-                        fileServer.sendFile(path,fileLength,networkStream);
+						Console.WriteLine("File length sent: " + fileLength.ToString());
+                        LIB.writeTextTCP(networkStream, fileLength.ToString());
+						Thread.Sleep(1);
+                        sendFile(path,fileLength,networkStream);
+						clientSocket.Close();
                     }
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.ToString());
                 }
+				finally
+				{
+					
+				}
             }
-            clientSocket.Close();
+            
             serverSocket.Stop();
             Console.WriteLine(" >> exit");
             Console.ReadLine();
