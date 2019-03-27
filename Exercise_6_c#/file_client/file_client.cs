@@ -35,8 +35,7 @@ namespace tcp
 			Thread.Sleep(20);
 			serverStream.Write(outStream, 0, outStream.Length);
 			serverStream.WriteByte(0);
-
-			Console.WriteLine("Sent data with length: " + outStream.Length);
+            
             byte[] inStream = new byte[20000];
             serverStream.Read(inStream, 0, inStream.Length);
             string returnMessage = System.Text.Encoding.ASCII.GetString(inStream);
