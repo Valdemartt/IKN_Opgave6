@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace tcp
 {
@@ -26,16 +27,18 @@ namespace tcp
         {
             string ipAdr = args[0];
             string fileName = args[1];
-            TcpClient clientSocket = new TcpClient();
-            clientSocket.Connect(ipAdr,PORT);
+            TcpClient clientSocket = new TcpClient(ipAdr,PORT);
             Console.WriteLine("Connected to server with IP: " + ipAdr);
             NetworkStream serverStream = clientSocket.GetStream();
+			Console.WriteLine("Got stream!");
             byte[] outStream = System.Text.Encoding.ASCII.GetBytes(fileName);
-            serverStream.Write(outStream,0,outStream.Length);
-            serverStream.Flush();
+			Thread.Sleep(20);
+			serverStream.Write(outStream, 0, outStream.Length);
+			serverStream.WriteByte(0);
 
+			Console.WriteLine("Sent data with length: " + outStream.Length);
             byte[] inStream = new byte[20000];
-            serverStream.Read(inStream, 0, (int) inStream.Length);
+            serverStream.Read(inStream, 0, inStream.Length);
             string returnMessage = System.Text.Encoding.ASCII.GetString(inStream);
             long fileLength;
             long.TryParse(returnMessage, out fileLength);
